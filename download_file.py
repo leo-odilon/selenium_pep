@@ -27,6 +27,7 @@ try:
         EC.presence_of_element_located((By.ID, "links-anos"))
     )
     select1 = Select(select1_element)
+    print(select1)
     select1.select_by_index(0)
 except Exception as e:
     print(f"Erro ao selecionar o primeiro dropdown: {e}")
@@ -37,6 +38,7 @@ try:
         EC.presence_of_element_located((By.ID, "links-meses"))
     )
     select2 = Select(select2_element)
+    print(select2)
     select2.select_by_index(0)
 except Exception as e:
     print(f"Erro ao selecionar o segundo dropdown: {e}")
