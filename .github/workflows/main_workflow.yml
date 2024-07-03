@@ -1,0 +1,12 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+  # schedule:
+  #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
+
+jobs:
+  download-pep:
+    uses: ./.github/workflows/pep_file.yml
