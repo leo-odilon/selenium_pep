@@ -33,6 +33,9 @@ jobs:
       run: python download_file.py
       env:
         DOWNLOAD_DIR: ${{ runner.temp }}/downloads  # Definindo o diretório de download
+
+    - name: Log files
+      run: ls ${{ runner.temp }}/downloads/
   
     - name: Upload downloaded file
       uses: actions/upload-artifact@v4
