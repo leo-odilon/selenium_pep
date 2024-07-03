@@ -3,7 +3,7 @@ name: Main Workflow
 on:
   push:
     branches:
-      - main
+      - master
   # schedule:
   #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
 
