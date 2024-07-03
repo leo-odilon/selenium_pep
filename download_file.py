@@ -21,6 +21,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 # Acessar o link
 driver.get("https://portaldatransparencia.gov.br/download-de-dados/pep")
+print(download_dir)
 
 # # Esperar até que o primeiro dropdown esteja presente e selecioná-lo
 # try:
@@ -49,11 +50,12 @@ try:
     download_button = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.ID, "btn"))
     )
+    print(download_button.get_attribute('outerHTML'))
     download_button.click()
 except Exception as e:
     print(f"Erro ao clicar no botão de download: {e}")
 
 # Aguardar o download
-time.sleep(10)  # Ajuste o tempo conforme necessário
+time.sleep(20)  # Ajuste o tempo conforme necessário
 
 driver.quit()
