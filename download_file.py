@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
+import os
 import time
 
 # Configurações do Selenium
@@ -13,7 +13,8 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-prefs = {"download.default_directory": "/download/pep"}  # Ajuste o caminho do diretório de download
+download_dir = os.getenv("DOWNLOAD_DIR", "/tmp")  # Diretório de download
+prefs = {"download.default_directory": download_dir}
 options.add_experimental_option("prefs", prefs)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)

@@ -31,9 +31,11 @@ jobs:
 
     - name: Run download script
       run: python download_file.py
-
+      env:
+        DOWNLOAD_DIR: ${{ runner.temp }}/downloads  # Definindo o diretório de download
+  
     - name: Upload downloaded file
       uses: actions/upload-artifact@v4
       with:
         name: pep-file
-        path: /download/pep  # Ajuste o caminho do diretório de download
+        path: ${{ runner.temp }}/downloads  # Ajuste o caminho do diretório de download
