@@ -8,10 +8,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
@@ -33,7 +33,7 @@ jobs:
       run: python download_file.py
 
     - name: Upload downloaded file
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: pep-file
         path: /download/pep  # Ajuste o caminho do diretório de download
