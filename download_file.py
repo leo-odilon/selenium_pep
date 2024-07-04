@@ -24,29 +24,6 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 driver.get("https://portaldatransparencia.gov.br/download-de-dados/pep")
 print(download_dir)
 
-# # Esperar até que o primeiro dropdown esteja presente e selecioná-lo
-# try:
-#     select1_element = WebDriverWait(driver, 10).until(
-#         EC.presence_of_element_located((By.ID, "links-anos"))
-#     )
-#     select1 = Select(select1_element)
-#     print(select1)
-#     select1.select_by_index(0)
-# except Exception as e:
-#     print(f"Erro ao selecionar o primeiro dropdown: {e}")
-
-# # Esperar até que o segundo dropdown esteja presente e selecioná-lo
-# try:
-#     select2_element = WebDriverWait(driver, 10).until(
-#         EC.presence_of_element_located((By.ID, "links-meses"))
-#     )
-#     select2 = Select(select2_element)
-#     print(select2)
-#     select2.select_by_index(0)
-# except Exception as e:
-#     print(f"Erro ao selecionar o segundo dropdown: {e}")
-
-# Esperar até que o botão de download esteja presente e clicar nele
 try:
     WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.ID, 'btn'))

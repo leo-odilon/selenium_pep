@@ -30,7 +30,7 @@ jobs:
         pip install webdriver-manager
 
     - name: Run download script
-      run: python download_file.py
+      run: python download_file_2.py
       env:
         DOWNLOAD_DIR: ${{ runner.temp }}/downloads  # Definindo o diretório de download
 
