@@ -28,6 +28,7 @@ jobs:
       run: |
         pip install selenium
         pip install webdriver-manager
+        pip install playwright
 
     - name: Run download script
       run: python download_file_2.py
