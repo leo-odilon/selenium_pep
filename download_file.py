@@ -47,13 +47,11 @@ print(download_dir)
 
 # Esperar até que o botão de download esteja presente e clicar nele
 try:
-    # Espera até que um elemento específico da página esteja presente
-    # Pode ser o próprio botão ou outro elemento que indica que a página está carregada
     WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.ID, 'btn'))
     )
 
-    # Espera até que o botão esteja clicável
+    # Espera até que o botão esteja visível e clicável
     download_button = WebDriverWait(driver, 20).until(
         EC.element_to_be_clickable((By.ID, 'btn'))
     )
