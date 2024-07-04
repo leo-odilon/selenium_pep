@@ -47,13 +47,18 @@ print(download_dir)
 
 # Esperar até que o botão de download esteja presente e clicar nele
 try:
-    download_button_link = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//a[button[@id='btn']]"))
+    # Espera até que o botão dentro do <a> esteja clicável
+    download_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.ID, 'btn'))
     )
-    print(download_button_link.get_attribute('outerHTML'))
-    download_button_link.click()
+    print(download_button.get_attribute('outerHTML'))
+
+    # Clica no botão de download
+    download_button.click()
+    print(driver.page_source)
 except Exception as e:
     print(f"Erro ao clicar no botão de download: {e}")
+    print(driver.page_source)
 
 # Aguardar o download
 time.sleep(20)  # Ajuste o tempo conforme necessário
