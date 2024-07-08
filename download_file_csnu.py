@@ -14,12 +14,18 @@ options = webdriver.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False)
+options.page_load_strategy = 'eager'
 
 download_dir = os.getenv("DOWNLOAD_DIR", "/tmp")  # Diretório de download
 prefs = {"download.default_directory": download_dir}
 options.add_experimental_option("prefs", prefs)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
+time.sleep(3.5)
 
 # Acessar o link
 driver.get("https://www.un.org/securitycouncil/content/un-sc-consolidated-list")
@@ -61,6 +67,6 @@ except Exception as e:
     print(driver.page_source)
 
 # Aguardar o download
-time.sleep(20)  # Ajuste o tempo conforme necessário
+time.sleep(5)  # Ajuste o tempo conforme necessário
 
 driver.quit()

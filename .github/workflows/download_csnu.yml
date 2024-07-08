@@ -35,14 +35,14 @@ jobs:
         export DISPLAY=:99
         python download_file_csnu.py
       env:
-        DOWNLOAD_DIR: ${{ runner.temp }}/downloads  # Definindo o diretório de download
+        DOWNLOAD_DIR: ${{ runner.temp }}/downloads_csnu  # Definindo o diretório de download
 
     - name: Log files
-      run: ls ${{ runner.temp }}/downloads/
+      run: ls ${{ runner.temp }}/downloads_csnu/
   
     - name: Upload downloaded file
       uses: actions/upload-artifact@v4
       with:
         name: csnu-file
-        path: ${{ runner.temp }}/downloads  # Ajuste o caminho do diretório de download
+        path: ${{ runner.temp }}/downloads_csnu  # Ajuste o caminho do diretório de download
         retention-days: 2
