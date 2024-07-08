@@ -21,7 +21,7 @@ options.add_experimental_option("prefs", prefs)
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # Acessar o link
-driver.get("https://www.un.org/securitycouncil/content/un-sc-consolidated-list")
+driver.get("https://portaldatransparencia.gov.br/download-de-dados/pep")
 print(download_dir)
 
 try:
