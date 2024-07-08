@@ -43,5 +43,5 @@ jobs:
     - name: Upload downloaded file
       uses: actions/upload-artifact@v4
       with:
-        name: pep-file
+        name: csnu-file
         path: ${{ runner.temp }}/downloads  # Ajuste o caminho do diretório de download
