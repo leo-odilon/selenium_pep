@@ -1,4 +1,4 @@
-name: Open CSNU List
+name: Prepare data - PEP / CSNU
 
 on: workflow_call
 

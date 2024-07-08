@@ -1,9 +1,9 @@
-name: Download PEP
+name: Open PEP List
 
 on: workflow_call
 
 jobs:
-  download-file:
+  open_pep:
     runs-on: ubuntu-latest
 
     steps:
