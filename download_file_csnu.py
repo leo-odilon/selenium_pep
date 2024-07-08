@@ -52,7 +52,7 @@ try:
         print(f"URL do XML: {xml_url}")
 
         # Fazer o download do arquivo XML
-        response = requests.get(xml_url)
+        response = requests.get(xml_url, verify=False)
         if response.status_code == 200:
             xml_path = os.path.join(download_dir, 'consolidated.xml')
             with open(xml_path, 'wb') as file:
