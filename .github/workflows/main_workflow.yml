@@ -8,8 +8,8 @@ on:
   #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
 
 jobs:
-  download:
+  download-pep:
     uses: ./.github/workflows/download_pep.yml
 
-  download:
+  download-csnu:
     uses: ./.github/workflows/download_csnu.yml
