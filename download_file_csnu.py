@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import requests
+import urllib3
 import os
 import time
 
@@ -51,15 +51,16 @@ try:
         xml_url = xml_link.get_attribute('href')
         print(f"URL do XML: {xml_url}")
 
-        # Fazer o download do arquivo XML
-        response = requests.get(xml_url, verify=False)
-        if response.status_code == 200:
+        # Fazer o download do arquivo XML com urllib3
+        http = urllib3.PoolManager(cert_reqs='CERT_NONE')
+        response = http.request('GET', xml_url)
+        if response.status == 200:
             xml_path = os.path.join(download_dir, 'consolidated.xml')
             with open(xml_path, 'wb') as file:
-                file.write(response.content)
+                file.write(response.data)
             print(f"XML baixado com sucesso: {xml_path}")
         else:
-            print(f"Falha ao baixar o XML. Status code: {response.status_code}")
+            print(f"Falha ao baixar o XML. Status code: {response.status}")
     else:
         print("Link para o XML não encontrado.")
 except Exception as e:
