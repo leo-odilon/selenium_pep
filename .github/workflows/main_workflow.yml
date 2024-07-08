@@ -9,7 +9,7 @@ on:
 
 jobs:
   download-pep:
-    uses: ./.github/workflows/pep_file.yml
+    uses: yml/pep_file.yml
 
   open-pep:
     needs: download-pep
