@@ -9,7 +9,7 @@ on:
 
 jobs:
   download-pep:
-    uses: ./yml/download/download_pep.yml
+    uses: ./.github/workflows/yml/download/download_pep.yml
 
   download-csnu:
-    uses: ./yml/download/download_csnu.yml
+    uses: ./.github/workflows/yml/download/download_csnu.yml

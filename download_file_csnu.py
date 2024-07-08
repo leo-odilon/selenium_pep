@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import requests
 import os
 import time
 
@@ -26,17 +27,35 @@ print(download_dir)
 
 try:
     WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'documentlinks'))
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a.documentlinks.uw-link-btn'))
     )
 
-    # Encontrar o link para o XML
-    xml_link = WebDriverWait(driver, 20).until(
-        EC.element_to_be_clickable((By.LINK_TEXT, 'Xml'))
-    )
-    print(xml_link.get_attribute('outerHTML'))
+    # Encontrar todos os links pelo seletor CSS
+    links = driver.find_elements(By.CSS_SELECTOR, 'a.documentlinks.uw-link-btn')
 
-    # Clicar no link do XML para iniciar o download
-    xml_link.click()
+    # Filtrar o link desejado com base no texto do link
+    xml_link = None
+    for link in links:
+        if link.text.strip().lower() == 'xml':
+            xml_link = link
+            break
+
+    # Verificar se o link foi encontrado
+    if xml_link:
+        xml_url = xml_link.get_attribute('href')
+        print(f"URL do XML: {xml_url}")
+
+        # Fazer o download do arquivo XML
+        response = requests.get(xml_url)
+        if response.status_code == 200:
+            xml_path = os.path.join(download_dir, 'consolidated.xml')
+            with open(xml_path, 'wb') as file:
+                file.write(response.content)
+            print(f"XML baixado com sucesso: {xml_path}")
+        else:
+            print(f"Falha ao baixar o XML. Status code: {response.status_code}")
+    else:
+        print("Link para o XML não encontrado.")
 except Exception as e:
     print(f"Erro ao clicar no botão de download: {e}")
     print(driver.page_source)

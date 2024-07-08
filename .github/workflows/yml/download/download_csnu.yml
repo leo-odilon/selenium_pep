@@ -45,3 +45,4 @@ jobs:
       with:
         name: csnu-file
         path: ${{ runner.temp }}/downloads  # Ajuste o caminho do diretório de download
+        retention-days: 2
