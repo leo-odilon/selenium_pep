@@ -1,6 +1,10 @@
 name: Insert data
 
-on: workflow_call
+on:
+  workflow_run:
+    workflows: ["Prepare data"]
+    types:
+      - completed
 
 jobs:
   open_csnu:

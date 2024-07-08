@@ -1,6 +1,10 @@
 name: Open CSNU List
 
-on: workflow_call
+on:
+  workflow_run:
+    workflows: ["Download CSNU"]
+    types:
+      - completed
 
 jobs:
   open_csnu:

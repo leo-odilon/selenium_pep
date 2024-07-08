@@ -1,6 +1,10 @@
 name: Open PEP List
 
-on: workflow_call
+on:
+  workflow_run:
+    workflows: ["Download PEP"]
+    types:
+      - completed
 
 jobs:
   open_pep:

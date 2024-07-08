@@ -1,6 +1,10 @@
-name: Prepare data - PEP / CSNU
+name: Prepare data
 
-on: workflow_call
+on:
+  workflow_run:
+    workflows: ["Open PEP List", "Open CSNU List"]
+    types:
+      - completed
 
 jobs:
   open_csnu:

@@ -9,23 +9,7 @@ on:
 
 jobs:
   download-pep:
-    uses: yml/pep_file.yml
-
-  open-pep:
-    needs: download-pep
-    uses: ./.github/workflows/open_pep.yml
+    uses: .github/workflows/download_pep.yml
 
   download-csnu:
-    uses: ./.github/workflows/csnu_file.yml
-
-  open-csnu:
-    needs: download-csnu
-    uses: ./.github/workflows/open_csnu.yml
-
-  prepare_data:
-    needs: [open-pep, open-csnu]
-    uses: ./.github/workflows/prepare_data.yml
-
-  insert_data:
-    needs: [prepare_data]
-    uses: ./.github/workflows/insert_data.yml
+    uses: ./.github/workflows/download_csnu.yml
