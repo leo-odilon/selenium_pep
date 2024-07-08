@@ -10,3 +10,14 @@ on:
 jobs:
   download-pep:
     uses: ./.github/workflows/pep_file.yml
+
+  open-pep:
+    needs: download-pep
+    uses: ./.github/workflows/open_pep.yml
+
+  download-csnu:
+    uses: ./.github/workflows/csnu_file.yml
+
+  open-csnu:
+    needs: download-csnu
+    uses: ./.github/workflows/open_csnu.yml
