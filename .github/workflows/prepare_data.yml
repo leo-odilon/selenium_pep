@@ -1,13 +1,9 @@
 name: Prepare data
 
-on:
-  workflow_run:
-    workflows: ["Open PEP List", "Open CSNU List"]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
-  open_csnu:
+  data:
     runs-on: ubuntu-latest
 
     steps:

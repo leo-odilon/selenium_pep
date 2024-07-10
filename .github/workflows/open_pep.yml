@@ -1,13 +1,9 @@
 name: Open PEP List
 
-on:
-  workflow_run:
-    workflows: ["Download PEP"]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
-  open_pep:
+  pep:
     runs-on: ubuntu-latest
 
     steps:

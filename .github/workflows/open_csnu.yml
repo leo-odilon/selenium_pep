@@ -1,13 +1,9 @@
 name: Open CSNU List
 
-on:
-  workflow_run:
-    workflows: ["Download CSNU"]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
-  open_csnu:
+  csnu:
     runs-on: ubuntu-latest
 
     steps:

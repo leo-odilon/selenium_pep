@@ -1,13 +1,9 @@
 name: Insert data
 
-on:
-  workflow_run:
-    workflows: ["Prepare data"]
-    types:
-      - completed
+on: workflow_call
 
 jobs:
-  open_csnu:
+  insert_sf:
     runs-on: ubuntu-latest
 
     steps:
