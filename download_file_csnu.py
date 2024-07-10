@@ -19,6 +19,9 @@ options.add_experimental_option("useAutomationExtension", False)
 options.page_load_strategy = 'eager'
 
 download_dir = os.getenv("DOWNLOAD_DIR", "/tmp")  # Diretório de download
+if not os.path.exists(download_dir):
+    os.makedirs(download_dir)
+    
 prefs = {"download.default_directory": download_dir}
 options.add_experimental_option("prefs", prefs)
 
@@ -69,7 +72,7 @@ try:
         print("Link para o XML não encontrado.")
 except Exception as e:
     print(f"Erro ao clicar no botão de download: {e}")
-    print(driver.page_source)
+    print(driver.execute_script("return document.body.innerText"))
 
 # Aguardar o download
 time.sleep(5)  # Ajuste o tempo conforme necessário
