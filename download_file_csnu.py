@@ -21,7 +21,7 @@ options.page_load_strategy = 'eager'
 download_dir = os.getenv("DOWNLOAD_DIR", "/tmp")  # Diretório de download
 if not os.path.exists(download_dir):
     os.makedirs(download_dir)
-    
+
 prefs = {"download.default_directory": download_dir}
 options.add_experimental_option("prefs", prefs)
 
@@ -63,10 +63,18 @@ try:
 
         # Obter o conteúdo visível na página
         page_content = driver.execute_script("return document.body.innerText")
+        page_content = page_content.replace('&', '')
+        lines = page_content.split('\n')
+        if len(lines) > 1:
+            page_content = '\n'.join(lines[1:])
+
+        # Adicionar cabeçalho XML
+        xml_header = "<?xml version='1.0' encoding='UTF-8'?>\n"
+        full_content = xml_header + page_content
 
         # Salvar o conteúdo em um arquivo XML
         with open(xml_path, 'w', encoding='utf-8') as file:
-            file.write(page_content)
+            file.write(full_content)
         print(f"XML salvo com sucesso: {xml_path}")
     else:
         print("Link para o XML não encontrado.")
