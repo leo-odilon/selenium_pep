@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-import urllib3
+import requests
 import os
 import time
 
@@ -48,19 +48,20 @@ try:
 
     # Verificar se o link foi encontrado
     if xml_link:
-        xml_url = xml_link.get_attribute('href')
-        print(f"URL do XML: {xml_url}")
+        # Clicar no link do XML para abrir a página
+        xml_link.click()
 
-        # Fazer o download do arquivo XML com urllib3
-        http = urllib3.PoolManager(cert_reqs='CERT_NONE')
-        response = http.request('GET', xml_url)
-        if response.status == 200:
-            xml_path = os.path.join(download_dir, 'consolidated.xml')
-            with open(xml_path, 'wb') as file:
-                file.write(response.data)
-            print(f"XML baixado com sucesso: {xml_path}")
-        else:
-            print(f"Falha ao baixar o XML. Status code: {response.status}")
+        # Aguardar a página carregar
+        time.sleep(20)  # Ajuste o tempo conforme necessário
+
+        # Obter o conteúdo da página
+        page_content = driver.page_source
+
+        # Salvar o conteúdo em um arquivo XML
+        xml_path = os.path.join(download_dir, 'csnu.xml')
+        with open(xml_path, 'w', encoding='utf-8') as file:
+            file.write(page_content)
+        print(f"XML salvo com sucesso: {xml_path}")
     else:
         print("Link para o XML não encontrado.")
 except Exception as e:
