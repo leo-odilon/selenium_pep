@@ -15,6 +15,9 @@ options.add_argument('--disable-dev-shm-usage')
 options.add_argument("--disable-blink-features=AutomationControlled")
 
 download_dir = os.getenv("DOWNLOAD_DIR", "/tmp")  # Diretório de download
+if not os.path.exists(download_dir):
+    os.makedirs(download_dir)
+    
 prefs = {"download.default_directory": download_dir}
 options.add_experimental_option("prefs", prefs)
 
