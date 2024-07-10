@@ -54,11 +54,14 @@ try:
         # Aguardar a página carregar
         time.sleep(20)  # Ajuste o tempo conforme necessário
 
-        # Obter o conteúdo da página
-        page_content = driver.page_source
+        # Criar um arquivo em branco no diretório de destino
+        xml_path = os.path.join(download_dir, 'csnu.xml')
+        open(xml_path, 'w').close()
+
+        # Obter o conteúdo visível na página
+        page_content = driver.execute_script("return document.body.innerText")
 
         # Salvar o conteúdo em um arquivo XML
-        xml_path = os.path.join(download_dir, 'csnu.xml')
         with open(xml_path, 'w', encoding='utf-8') as file:
             file.write(page_content)
         print(f"XML salvo com sucesso: {xml_path}")
