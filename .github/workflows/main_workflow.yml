@@ -8,22 +8,22 @@ on:
   #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
 
 jobs:
-  download-pep:
-    uses: ./.github/workflows/download_pep.yml
+  download:
+    uses: ./.github/workflows/download.yml
 
-  download-csnu:
-    uses: ./.github/workflows/download_csnu.yml
+  # download-csnu:
+  #   uses: ./.github/workflows/download_csnu.yml
 
-  open-pep:
-    needs: [download-pep]
-    uses: ./.github/workflows/open_pep.yml
+  open-file:
+    needs: [download]
+    uses: ./.github/workflows/open_file.yml
 
-  open-csnu:
-    needs: [download-csnu]
-    uses: ./.github/workflows/open_csnu.yml
+  # open-csnu:
+  #   needs: [download-csnu]
+  #   uses: ./.github/workflows/open_csnu.yml
 
   prepare_data:
-    needs: [open-pep, open-csnu]
+    needs: [open-file]
     uses: ./.github/workflows/prepare_data.yml
 
   insert_data:

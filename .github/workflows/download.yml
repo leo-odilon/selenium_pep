@@ -46,3 +46,47 @@ jobs:
         name: pep-file
         path: ${{ runner.temp }}/downloads_pep  # Ajuste o caminho do diretório de download
         retention-days: 2
+
+  csnu-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Google Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget gnupg
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable xvfb
+
+    - name: Install dependencies
+      run: |
+        pip install selenium
+        pip install webdriver-manager
+
+    - name: Run download script
+      run: |
+        Xvfb :99 -screen 0 1920x1080x24 &
+        export DISPLAY=:99
+        python download_file_csnu.py
+      env:
+        DOWNLOAD_DIR: ${{ runner.temp }}/downloads_csnu  # Definindo o diretório de download
+
+    - name: Log files
+      run: ls ${{ runner.temp }}/downloads_csnu/
+  
+    - name: Upload downloaded file
+      uses: actions/upload-artifact@v4
+      with:
+        name: csnu-file
+        path: ${{ runner.temp }}/downloads_csnu  # Ajuste o caminho do diretório de download
+        retention-days: 2
