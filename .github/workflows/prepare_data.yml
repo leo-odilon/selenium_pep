@@ -28,5 +28,7 @@ jobs:
         path: ${{ runner.temp }}/downloads_csnu
 
     - name: Display structure of downloaded files
-      run: ls -R ${{ runner.temp }}
+      run: |
+        ls -R ${{ runner.temp }}/downloads_pep
+        ls -R ${{ runner.temp }}/downloads_csnu
     
