@@ -3,7 +3,7 @@ name: Prepare data
 on: workflow_call
 
 jobs:
-  data:
+  prepare-pep:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,15 +20,30 @@ jobs:
       with:
         name: pep-file
         path: ${{ runner.temp }}/downloads_pep
-      
-    - name: Get File CSNU
-      uses: actions/download-artifact@v4
-      with:
-        name: csnu-file
-        path: ${{ runner.temp }}/downloads_csnu
 
-    - name: Display structure of downloaded files
+    - name: Install dependencies
       run: |
-        ls -R ${{ runner.temp }}/downloads_pep
-        ls -R ${{ runner.temp }}/downloads_csnu
-    
+        pip install pandas
+        pip install pyarrow
+
+    - name: Run python prepare
+      run: |
+        python prepare_pep.py
+
+  # prepare-csnu:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v5
+  #     with:
+  #       python-version: '3.x'
+      
+  #   - name: Get File CSNU
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: csnu-file
+  #       path: ${{ runner.temp }}/downloads_csnu
