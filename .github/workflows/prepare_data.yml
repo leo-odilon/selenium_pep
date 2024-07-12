@@ -15,11 +15,17 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Get File
+    - name: Get File PEP
       uses: actions/download-artifact@v4
       with:
         name: pep-file
-        path: ${{ runner.temp }}
+        path: ${{ runner.temp }}/downloads_pep
+      
+    - name: Get File CSNU
+      uses: actions/download-artifact@v4
+      with:
+        name: csnu-file
+        path: ${{ runner.temp }}/downloads_csnu
 
     - name: Display structure of downloaded files
       run: ls -R ${{ runner.temp }}
