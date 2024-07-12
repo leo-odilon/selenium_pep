@@ -35,7 +35,7 @@ jobs:
         export DISPLAY=:99
         python download_file_pep.py
       env:
-        DOWNLOAD_DIR: ${{ runner.temp }}/downloads_pep  # Definindo o diretório de download
+        DOWNLOAD_DIR: ${{ runner.temp }}/downloads_pep
 
     - name: Log files
       run: ls ${{ runner.temp }}/downloads_pep/
@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: pep-file
-        path: ${{ runner.temp }}/downloads_pep  # Ajuste o caminho do diretório de download
+        path: ${{ runner.temp }}/downloads_pep
         retention-days: 2
 
   csnu-file:
