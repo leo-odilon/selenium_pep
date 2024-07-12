@@ -33,7 +33,7 @@ jobs:
     - name: Upload pep parquet file
       uses: actions/upload-artifact@v4
       with:
-        name: pep-parquet
+        name: pep.parquet
         path: ${{ runner.temp }}/pep-parquet
         retention-days: 2
       
