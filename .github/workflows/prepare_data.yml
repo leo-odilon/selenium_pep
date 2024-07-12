@@ -15,7 +15,7 @@ jobs:
       with:
         python-version: '3.x'
       
-  - name: Display structure of downloaded files
+    - name: Display structure of downloaded files
       run: ls -R ${{ runner.temp }}
 
     - name: Get File PEP
