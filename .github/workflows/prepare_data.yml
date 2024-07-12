@@ -14,9 +14,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.x'
-      
-    - name: Display structure of downloaded files
-      run: ls -R ${{ runner.temp }}
 
     - name: Get File PEP
       uses: actions/download-artifact@v4
@@ -40,8 +37,8 @@ jobs:
         path: ${{ runner.temp }}/pep-parquet
         retention-days: 2
       
-    - name: Display structure of downloaded files 2
-      run: ls -R ${{ runner.temp }}
+    - name: Log files
+      run: ls ${{ runner.temp }}/pep-parquet/
 
   # prepare-csnu:
   #   runs-on: ubuntu-latest

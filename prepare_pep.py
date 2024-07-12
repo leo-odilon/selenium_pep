@@ -54,6 +54,10 @@ def process_zip_to_parquet(zip_file_path, new_column_names, parquet_file_path, e
 download_directory = os.getenv('RUNNER_TEMP') + '/downloads_pep'
 parquet_directory = os.getenv('RUNNER_TEMP') + '/pep-parquet'
 
+if not os.path.exists(parquet_directory):
+            os.makedirs(parquet_directory)
+            print(f'Diretório criado: {parquet_directory}')
+
 # Encontrar o primeiro arquivo ZIP no diretório
 zip_file_path = find_first_file_with_extension(download_directory, '.zip')
 if zip_file_path is None:
