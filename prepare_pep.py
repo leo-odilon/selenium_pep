@@ -63,7 +63,7 @@ if zip_file_path is None:
 new_column_names = ['CPF', 'Nome_PEP', 'Sigla_Funcao',
                     'Descricao_Funcao', 'Nivel_Funcao', 'Nome_Orgao', 'Data_Inicio_Exercicio', 'Data_Fim_Exercicio', 'Data_Fim_Carencia']  # Adicione todos os nomes de colunas necessários
 # Caminho para salvar o arquivo Parquet
-parquet_file_path = os.path.join(download_directory, 'pep.parquet')
+parquet_file_path = os.path.join(parquet_directory, 'pep.parquet')
 
 # Chamar a função para processar o arquivo
 process_zip_to_parquet(zip_file_path, new_column_names, parquet_file_path)
