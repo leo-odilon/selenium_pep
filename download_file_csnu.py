@@ -36,11 +36,11 @@ print(download_dir)
 
 try:
     WebDriverWait(driver, 20).until(
-        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a.documentlinks.uw-link-btn'))
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'a.documentlinks'))
     )
 
     # Encontrar todos os links pelo seletor CSS
-    links = driver.find_elements(By.CSS_SELECTOR, 'a.documentlinks.uw-link-btn')
+    links = driver.find_elements(By.CSS_SELECTOR, 'a.documentlinks')
 
     # Filtrar o link desejado com base no texto do link
     xml_link = None
