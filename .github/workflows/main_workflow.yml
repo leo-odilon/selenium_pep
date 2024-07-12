@@ -14,16 +14,16 @@ jobs:
   # download-csnu:
   #   uses: ./.github/workflows/download_csnu.yml
 
-  open-file:
-    needs: [download]
-    uses: ./.github/workflows/open_file.yml
+  # open-file:
+  #   needs: [download]
+  #   uses: ./.github/workflows/open_file.yml
 
   # open-csnu:
   #   needs: [download-csnu]
   #   uses: ./.github/workflows/open_csnu.yml
 
   prepare_data:
-    needs: [open-file]
+    needs: [download]
     uses: ./.github/workflows/prepare_data.yml
 
   insert_data:
