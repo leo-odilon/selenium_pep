@@ -1,20 +1,29 @@
+import zipfile
 import xml.etree.ElementTree as ET
 import pandas as pd
+
+# Caminho do arquivo ZIP
+zip_path = '/mnt/data/csnu.zip'
+
+# Extrair o arquivo XML do ZIP
+with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    xml_filename = zip_ref.namelist()[0]  # Considerando que há apenas um arquivo no ZIP
+    zip_ref.extract(xml_filename, '/mnt/data/')
 
 # Função para extrair o valor de um elemento XML
 def get_element_text(element, path):
     elem = element.find(path)
     return elem.text if elem is not None else ""
 
-# Carregar e parsear o arquivo XML
-tree = ET.parse('csnu.xml')
+# Carregar e parsear o arquivo XML extraído
+tree = ET.parse(f'/mnt/data/{xml_filename}')
 root = tree.getroot()
 
 # Lista para armazenar os dados extraídos
 data_individuals = []
 data_entities = []
-#
-# # Extrair dados dos indivíduos
+
+# Extrair dados dos indivíduos
 for individual in root.findall('.//INDIVIDUAL'):
     data = {
         "DATAID": get_element_text(individual, 'DATAID'),
@@ -29,7 +38,7 @@ for individual in root.findall('.//INDIVIDUAL'):
     }
     data_individuals.append(data)
 
-# # Extrair dados das entidades
+# Extrair dados das entidades
 for entity in root.findall('.//ENTITY'):
     data = {
         "DATAID": get_element_text(entity, 'DATAID'),
@@ -44,15 +53,4 @@ for entity in root.findall('.//ENTITY'):
     }
     data_entities.append(data)
 
-# Converter listas de dados em DataFrames
-pd.set_option('display.max_columns', None)
-df_individuals = pd.DataFrame(data_individuals)
-df_entities = pd.DataFrame(data_entities)
-
-# Concatenar os DataFrames
-df_final = pd.concat([df_individuals, df_entities], ignore_index=True)
-
-# Salvar em formato Parquet
-df_final.to_parquet('csnu.parquet', engine='pyarrow')
-
-print("Dados extraídos e salvos no arquivo output.parquet")
+# Converter listas
