@@ -1,14 +1,28 @@
 import zipfile
 import xml.etree.ElementTree as ET
 import pandas as pd
+import os
+
+
+# Função para encontrar o primeiro arquivo com uma determinada extensão em um diretório
+def find_first_file_with_extension(directory, extension):
+    for file in os.listdir(directory):
+        if file.endswith(extension):
+            return os.path.join(directory, file)
+    return None
 
 # Caminho do arquivo ZIP
-zip_path = '/mnt/data/csnu.zip'
+download_directory = os.getenv('RUNNER_TEMP') + '/downloads_csnu'
+parquet_directory = os.getenv('RUNNER_TEMP') + '/csnu-parquet'
+
+zip_file_path = find_first_file_with_extension(download_directory, '.zip')
+if zip_file_path is None:
+    raise FileNotFoundError("Nenhum arquivo ZIP encontrado no diretório de downloads.")
 
 # Extrair o arquivo XML do ZIP
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
     xml_filename = zip_ref.namelist()[0]  # Considerando que há apenas um arquivo no ZIP
-    zip_ref.extract(xml_filename, '/mnt/data/')
+    zip_ref.extract(xml_filename, download_directory)
 
 # Função para extrair o valor de um elemento XML
 def get_element_text(element, path):
@@ -16,7 +30,7 @@ def get_element_text(element, path):
     return elem.text if elem is not None else ""
 
 # Carregar e parsear o arquivo XML extraído
-tree = ET.parse(f'/mnt/data/{xml_filename}')
+tree = ET.parse(f'{download_directory}/{xml_filename}')
 root = tree.getroot()
 
 # Lista para armazenar os dados extraídos
@@ -53,4 +67,14 @@ for entity in root.findall('.//ENTITY'):
     }
     data_entities.append(data)
 
-# Converter listas
+# Converter listas de dados em DataFrames
+df_individuals = pd.DataFrame(data_individuals)
+df_entities = pd.DataFrame(data_entities)
+
+# Concatenar os DataFrames
+df_final = pd.concat([df_individuals, df_entities], ignore_index=True)
+
+# Salvar em formato Parquet
+df_final.to_parquet(f'{parquet_directory}/csnu.parquet', engine='pyarrow')
+
+print("Dados extraídos e salvos no arquivo output.parquet")
