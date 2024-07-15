@@ -57,6 +57,9 @@ jobs:
       with:
         name: csnu-file
         path: ${{ runner.temp }}/downloads_csnu
+    
+    - name: Log files
+      run: ls ${{ runner.temp }}/downloads_csnu/
 
     - name: Install dependencies
       run: |
