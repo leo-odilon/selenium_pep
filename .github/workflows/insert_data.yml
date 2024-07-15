@@ -45,15 +45,15 @@ jobs:
         run: |
           echo ${{ secrets.UAT_URL }} > ./SECRET.txt
 
-      - name: 'Authenticate to Org'
-        run: | 
-          sf org login sfdx-url -f ./SECRET.txt -s -a integration
+    - name: 'Authenticate to Org'
+      run: | 
+        sf org login sfdx-url -f ./SECRET.txt -s -a integration
 
-      - name: Generate Authentication Token
-        id: generate_token
-        run: |
-          AUTH_TOKEN=$(sfdx force:org:display --json | jq -r '.result.accessToken')
-          echo "::set-output name=auth_token::$AUTH_TOKEN"
-      
-      - name: Log files
-        run: ls ${{ runner.temp }}/pep-parquet/
+    - name: Generate Authentication Token
+      id: generate_token
+      run: |
+        AUTH_TOKEN=$(sfdx force:org:display --json | jq -r '.result.accessToken')
+        echo "::set-output name=auth_token::$AUTH_TOKEN"
+    
+    - name: Log files
+      run: ls ${{ runner.temp }}/pep-parquet/
