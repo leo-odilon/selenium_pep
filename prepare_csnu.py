@@ -15,14 +15,9 @@ def find_first_file_with_extension(directory, extension):
 download_directory = os.getenv('RUNNER_TEMP') + '/downloads_csnu'
 parquet_directory = os.getenv('RUNNER_TEMP') + '/csnu-parquet'
 
-zip_file_path = find_first_file_with_extension(download_directory, '.zip')
-if zip_file_path is None:
-    raise FileNotFoundError("Nenhum arquivo ZIP encontrado no diretório de downloads.")
-
-# Extrair o arquivo XML do ZIP
-with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-    xml_filename = zip_ref.namelist()[0]  # Considerando que há apenas um arquivo no ZIP
-    zip_ref.extract(xml_filename, download_directory)
+xml_file_path = find_first_file_with_extension(download_directory, '.xml')
+if xml_file_path is None:
+    raise FileNotFoundError("Nenhum arquivo XML encontrado no diretório de downloads.")
 
 # Função para extrair o valor de um elemento XML
 def get_element_text(element, path):
@@ -30,7 +25,7 @@ def get_element_text(element, path):
     return elem.text if elem is not None else ""
 
 # Carregar e parsear o arquivo XML extraído
-tree = ET.parse(f'{download_directory}/{xml_filename}')
+tree = ET.parse(f'{download_directory}/{xml_file_path}')
 root = tree.getroot()
 
 # Lista para armazenar os dados extraídos
