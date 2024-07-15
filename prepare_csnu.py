@@ -15,6 +15,10 @@ def find_first_file_with_extension(directory, extension):
 download_directory = os.getenv('RUNNER_TEMP') + '/downloads_csnu'
 parquet_directory = os.getenv('RUNNER_TEMP') + '/csnu-parquet'
 
+if not os.path.exists(parquet_directory):
+            os.makedirs(parquet_directory)
+            print(f'Diretório criado: {parquet_directory}')
+
 xml_file_path = find_first_file_with_extension(download_directory, '.xml')
 if xml_file_path is None:
     raise FileNotFoundError("Nenhum arquivo XML encontrado no diretório de downloads.")
