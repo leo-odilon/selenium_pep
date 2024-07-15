@@ -25,7 +25,7 @@ def get_element_text(element, path):
     return elem.text if elem is not None else ""
 
 # Carregar e parsear o arquivo XML extraído
-tree = ET.parse(f'{download_directory}/{xml_file_path}')
+tree = ET.parse(f'{xml_file_path}')
 root = tree.getroot()
 
 # Lista para armazenar os dados extraídos
