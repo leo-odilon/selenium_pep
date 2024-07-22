@@ -43,7 +43,7 @@ jobs:
     - name: 'Populate auth file with SFDX_URL secret of the integration and staging orgs'
       shell: bash
       run: |
-        echo ${{ secrets.UAT_URL }} > ./SECRET.txt
+        echo ${{ secrets.ORG_AUTH }} > ./SECRET.txt
 
     - name: 'Authenticate to Org'
       run: | 
