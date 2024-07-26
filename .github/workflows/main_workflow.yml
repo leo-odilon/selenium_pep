@@ -21,6 +21,4 @@ jobs:
   #   uses: ./.github/workflows/insert_data.yml
 
   token_request:
-    environment:
-        name: master
     uses: ./.github/workflows/api.yml
