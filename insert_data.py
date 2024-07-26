@@ -36,7 +36,7 @@ def main(parquet_file_path, query, api_url, auth_token, chunk_size=None):
     json_payload = {"verificationList": json_data}
     # print(json_payload)
     headers = {
-        "Authorization": f"Bearer 00Dcb00000016WX!AQEAQOl6ZWNZ8AX.6P3z6ki5Yue4R5vXK6jEkV5DNvtqwpYRRNn1zXknew.lKkUi_oAlm4Vo7Hve8dQuVoKlcOzpVBMi7hZL",
+        "Authorization": f"Bearer {auth_token}",
         "Content-Type": "application/json"
     }
 
