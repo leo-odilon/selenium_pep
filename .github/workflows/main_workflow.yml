@@ -22,3 +22,4 @@ jobs:
 
   token_request:
     uses: ./.github/workflows/api.yml
+    secrets: inherit
