@@ -6,7 +6,7 @@ CLIENT_ID=$3
 CLIENT_SECRET=$4
 TOKEN_URL=$5
 
-RESPONSE=$(curl -X POST "$TOKEN_URL" \
+RESPONSE=$(curl -X POST "$TOKEN_URL" --silent \
   -d "grant_type=password" \
   -d "client_id=$CLIENT_ID" \
   -d "client_secret=$CLIENT_SECRET" \
