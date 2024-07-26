@@ -34,7 +34,7 @@ jobs:
       - name: Make call using shell script
         id: call_api
         run: |
-          chmod +x token_request.sh
+          chmod +x ./token_request.sh
           ./token_request.sh "${{ secrets.USERNAME }}" "${{ secrets.PASSWORD }}" "${{ secrets.CLIENT_ID }}" "${{ secrets.CLIENT_SECRET }}" "${{ vars.TOKEN_URL }}"
 
       - name: Use access_token
