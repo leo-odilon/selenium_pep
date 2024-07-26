@@ -5,6 +5,7 @@ on: workflow_call
 jobs:
   insert_pep:
     runs-on: ubuntu-latest
+    environment: master
 
     steps:
     - name: Checkout repository
@@ -24,10 +25,10 @@ jobs:
         name: pep.parquet
         path: ${{ runner.temp }}/pep-parquet
 
-    - name: Install jq
-      run: |
-        sudo apt-get update
-        sudo apt-get install jq
+    # - name: Install jq
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install jq
 
     - name: Install dependencies
       run: |
@@ -35,25 +36,17 @@ jobs:
         pip install pyarrow
         pip install pandasql
 
-    - name: 'Install Salesforce CLI'
-      run: |
-        npm install @salesforce/cli --global
-        sf version
+    # - name: 'Install Salesforce CLI'
+    #   run: |
+    #     npm install @salesforce/cli --global
+    #     sf version
 
-    - name: 'Populate auth file with SFDX_URL secret of the integration and staging orgs'
+    - name: Request Auth Token
       shell: bash
+      id: call_api
       run: |
-        echo ${{ secrets.ORG_AUTH }} > ./SECRET.txt
-
-    - name: 'Authenticate to Org'
-      run: | 
-        sf org login sfdx-url -f ./SECRET.txt -s -a integration
-
-    - name: Generate Authentication Token
-      id: generate_token
-      run: |
-        AUTH_TOKEN=$(sfdx force:org:display --json | jq -r '.result.accessToken')
-        echo "::set-output name=auth_token::$AUTH_TOKEN"
+        chmod +x ./token_request.sh
+        ./token_request.sh "${{ secrets.USERNAME }}" "${{ secrets.PASSWORD }}" "${{ secrets.CLIENT_ID }}" "${{ secrets.CLIENT_SECRET }}" "${{ vars.TOKEN_URL }}"
     
     - name: Log files
       run: ls ${{ runner.temp }}/pep-parquet/

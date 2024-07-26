@@ -9,17 +9,17 @@ on:
   #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
 
 jobs:
-  # download:
-  #   uses: ./.github/workflows/download.yml
+  download:
+    uses: ./.github/workflows/download.yml
 
-  # prepare_data:
-  #   needs: [download]
-  #   uses: ./.github/workflows/prepare_data.yml
+  prepare_data:
+    needs: [download]
+    uses: ./.github/workflows/prepare_data.yml
 
-  # insert_data:
-  #   needs: [prepare_data]
-  #   uses: ./.github/workflows/insert_data.yml
+  insert_data:
+    needs: [prepare_data]
+    uses: ./.github/workflows/insert_data.yml
 
   token_request:
-    uses: ./.github/workflows/api.yml
+    uses: ./.github/workflows/insert_data.yml
     secrets: inherit
