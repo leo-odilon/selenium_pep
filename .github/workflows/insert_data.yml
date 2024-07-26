@@ -35,6 +35,7 @@ jobs:
         pip install pandas
         pip install pyarrow
         pip install pandasql
+        pip install requests
 
     # - name: 'Install Salesforce CLI'
     #   run: |
