@@ -5,13 +5,11 @@ on: workflow_call
 jobs:
   api-request:
     runs-on: ubuntu-latest
-    # environment: dev
+    environment: master
 
     steps:
       - name: Mask secrets in logs
         run: |
-          echo "::add-mask::${{ vars.TEST }}"
-          echo "${{ vars.TEST }}"
           echo "{\"username\": \"${{ secrets.USERNAME }}\", \"password\": \"${{ secrets.PASSWORD }}\", \"client_id\": \"${{ secrets.CLIENT_ID }}\",\"client_secret\": \"${{ secrets.CLIENT_SECRET }}\"}" > credentials.json
           cat credentials.json
       - name: Obter token de autenticação
@@ -33,7 +31,12 @@ jobs:
           token=$(echo $response | jq -r '.access_token')
           echo "token=$token" >> $GITHUB_OUTPUT
 
-      - name: Usar o token de autenticação
+      - name: Make call using shell script
+        id: call_api
         run: |
-          echo "Token de autenticação: ${{ steps.obter_token.outputs.token }}"
-          # Exemplo de uso do token para fazer uma requisição API
+          chmod +x token_request.sh
+          ./token_request.sh "${{ secrets.USERNAME }}" "${{ secrets.PASSWORD }}" "${{ secrets.CLIENT_ID }}" "${{ secrets.CLIENT_SECRET }}" "${{ vars.TOKEN_URL }}"
+
+      - name: Use access_token
+        run: |
+          echo "Access token: ${{ steps.call_api.outputs.access_token }}"
