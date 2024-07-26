@@ -19,7 +19,5 @@ jobs:
   insert_data:
     needs: [prepare_data]
     uses: ./.github/workflows/insert_data.yml
-
-  token_request:
-    uses: ./.github/workflows/insert_data.yml
     secrets: inherit
+
