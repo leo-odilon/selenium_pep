@@ -50,3 +50,7 @@ jobs:
     
     - name: Log files
       run: ls ${{ runner.temp }}/pep-parquet/
+
+    - name: Insert Data
+      run: |
+        python insert_data.py ${{ runner.temp }}/pep-parquet/pep.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
