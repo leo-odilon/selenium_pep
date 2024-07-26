@@ -12,7 +12,7 @@ jobs:
       - name: Obter token de autenticação
         id: obter_token
         run: |
-          response=$(curl -X POST {{ vars.TOKEN_URL }} \
+          response=$(curl -X POST ${{ vars.TOKEN_URL }} \
             -d "grant_type=password" \
             -d "client_id=${{ secrets.CLIENT_ID }}" \
             -d "client_secret=${{ secrets.CLIENT_SECRET }}" \
