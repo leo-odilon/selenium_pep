@@ -8,6 +8,9 @@ jobs:
     environment: master
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
       - name: Mask secrets in logs
         run: |
           echo "{\"username\": \"${{ secrets.USERNAME }}\", \"password\": \"${{ secrets.PASSWORD }}\", \"client_id\": \"${{ secrets.CLIENT_ID }}\",\"client_secret\": \"${{ secrets.CLIENT_SECRET }}\"}" > credentials.json

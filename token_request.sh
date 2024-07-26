@@ -14,3 +14,5 @@ RESPONSE=$(curl -X POST "$TOKEN_URL" --silent \
   -d "password=$PASSWORD")
 
 ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.access_token')
+
+echo "access_token=$ACCESS_TOKEN" >> $GITHUB_OUTPUT
