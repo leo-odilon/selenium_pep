@@ -29,7 +29,7 @@ jobs:
           echo "response=$response"
           echo ${{ secrets.CLIENT_ID }}
           token=$(echo $response | jq -r '.access_token')
-          echo "::set-output name=token::$token"
+          echo "::save-state name=token::$token"
 
       - name: Usar o token de autenticação
         run: |
