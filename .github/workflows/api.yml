@@ -38,3 +38,4 @@ jobs:
       - name: Use access_token
         run: |
           echo "Access token: ${{ steps.call_api.outputs.access_token }}"
+          echo "Access token_2: ${{ steps.call_api.outputs.token }}"
