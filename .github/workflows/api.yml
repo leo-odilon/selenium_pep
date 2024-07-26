@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   api-request:
     runs-on: ubuntu-latest
-    environment: master
+    environment: dev
 
     steps:
       - name: Mask secrets in logs
