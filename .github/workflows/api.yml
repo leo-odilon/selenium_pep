@@ -10,23 +10,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      
-      - name: Obter token de autenticação
-        id: obter_token
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: |
-          response=$(curl -X POST ${{ vars.TOKEN_URL }} --silent \
-            -d "grant_type=password" \
-            -d "client_id=${CLIENT_ID}" \
-            -d "client_secret=${CLIENT_SECRET}" \
-            -d "username=${USERNAME}" \
-            -d "password=${PASSWORD}")
-          token=$(echo $response | jq -r '.access_token')
-          echo "token=$token" >> $GITHUB_OUTPUT
 
       - name: Make call using shell script
         shell: bash
@@ -38,4 +21,3 @@ jobs:
       - name: Use access_token
         run: |
           echo "Access token: ${{ steps.call_api.outputs.access_token }}"
-          echo "Access token_2: ${{ steps.call_api.outputs.token }}"
