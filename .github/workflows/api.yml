@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Mask secrets in logs
         run: |
+          echo "::add-mask::${{ vars.TEST }}"
+          echo "${{ vars.TEST }}"
           echo "{\"username\": \"${{ secrets.USERNAME }}\", \"password\": \"${{ secrets.PASSWORD }}\", \"client_id\": \"${{ secrets.CLIENT_ID }}\",\"client_secret\": \"${{ secrets.CLIENT_SECRET }}\"}" > credentials.json
           cat credentials.json
       - name: Obter token de autenticação
