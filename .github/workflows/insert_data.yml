@@ -3,7 +3,50 @@ name: Insert data
 on: workflow_call
 
 jobs:
-  insert_pep:
+  # insert_pep:
+  #   runs-on: ubuntu-latest
+  #   environment: master
+
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+
+  #   - name: 'Install Node'
+  #     uses: actions/setup-node@v4
+
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v5
+  #     with:
+  #       python-version: '3.x'
+
+  #   - name: Get File PEP
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: pep.parquet
+  #       path: ${{ runner.temp }}/pep-parquet
+
+  #   - name: Install dependencies
+  #     run: |
+  #       pip install pandas
+  #       pip install pyarrow
+  #       pip install pandasql
+  #       pip install requests
+
+  #   - name: Request Auth Token
+  #     shell: bash
+  #     id: call_api
+  #     run: |
+  #       chmod +x ./token_request.sh
+  #       ./token_request.sh "${{ secrets.USERNAME }}" "${{ secrets.PASSWORD }}" "${{ secrets.CLIENT_ID }}" "${{ secrets.CLIENT_SECRET }}" "${{ vars.TOKEN_URL }}"
+    
+  #   - name: Log files
+  #     run: ls ${{ runner.temp }}/pep-parquet/
+
+  #   - name: Insert Data
+  #     run: |
+  #       python insert_data.py ${{ runner.temp }}/pep-parquet/pep.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
+
+  insert_csnu:
     runs-on: ubuntu-latest
     environment: master
 
@@ -19,16 +62,11 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Get File PEP
+    - name: Get File CSNU
       uses: actions/download-artifact@v4
       with:
-        name: pep.parquet
-        path: ${{ runner.temp }}/pep-parquet
-
-    # - name: Install jq
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install jq
+        name: csnu.parquet
+        path: ${{ runner.temp }}/csnu-parquet
 
     - name: Install dependencies
       run: |
@@ -36,11 +74,6 @@ jobs:
         pip install pyarrow
         pip install pandasql
         pip install requests
-
-    # - name: 'Install Salesforce CLI'
-    #   run: |
-    #     npm install @salesforce/cli --global
-    #     sf version
 
     - name: Request Auth Token
       shell: bash
@@ -50,8 +83,8 @@ jobs:
         ./token_request.sh "${{ secrets.USERNAME }}" "${{ secrets.PASSWORD }}" "${{ secrets.CLIENT_ID }}" "${{ secrets.CLIENT_SECRET }}" "${{ vars.TOKEN_URL }}"
     
     - name: Log files
-      run: ls ${{ runner.temp }}/pep-parquet/
+      run: ls ${{ runner.temp }}/csnu-parquet/
 
     - name: Insert Data
       run: |
-        python insert_data.py ${{ runner.temp }}/pep-parquet/pep.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
+        python insert_data.py ${{ runner.temp }}/csnu-parquet/csnu.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
