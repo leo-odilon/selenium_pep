@@ -12,9 +12,11 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Mask secrets in logs
+        shell: bash
         run: |
           echo "{\"username\": \"${{ secrets.USERNAME }}\", \"password\": \"${{ secrets.PASSWORD }}\", \"client_id\": \"${{ secrets.CLIENT_ID }}\",\"client_secret\": \"${{ secrets.CLIENT_SECRET }}\"}" > credentials.json
           cat credentials.json
+          echo ${{ secrets.USERNAME }}
       - name: Obter token de autenticação
         id: obter_token
         env:
@@ -35,6 +37,7 @@ jobs:
           echo "token=$token" >> $GITHUB_OUTPUT
 
       - name: Make call using shell script
+        shell: bash
         id: call_api
         run: |
           chmod +x ./token_request.sh
