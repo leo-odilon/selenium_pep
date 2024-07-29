@@ -5,8 +5,9 @@ on:
   push:
     branches:
       - master
-  # schedule:
-  #   - cron: '0 0 * * *'  # Executa todos os dias à meia-noite
+      - dev
+    schedule:
+      - cron: '20 9 * * *'  # Executa todos os dias à meia-noite
 
 jobs:
   download:
