@@ -2,12 +2,12 @@ name: Main Workflow
 
 on:
   workflow_dispatch:
-  push:
+  # push:
     # branches:
     #   - master
     #   - dev
   schedule:
-    - cron: '30 9 * * *'  # Executa todos os dias à meia-noite
+    - cron: '*/30 * * * *'  # Executa todos os dias à meia-noite
 
 jobs:
   download:
