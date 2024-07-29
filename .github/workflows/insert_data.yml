@@ -44,7 +44,7 @@ jobs:
 
     - name: Insert Data
       run: |
-        python insert_data.py ${{ runner.temp }}/pep-parquet/pep.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
+        python insert_data.py ${{ runner.temp }}/pep-parquet/pep.parquet 'select * from df' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
 
   insert_csnu:
     runs-on: ubuntu-latest
@@ -87,4 +87,4 @@ jobs:
 
     - name: Insert Data
       run: |
-        python insert_data.py ${{ runner.temp }}/csnu-parquet/csnu.parquet 'select * from df limit 10' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
+        python insert_data.py ${{ runner.temp }}/csnu-parquet/csnu.parquet 'select * from df' "${{ vars.URL_INSERT_API }}" "${{ steps.call_api.outputs.access_token }}" 10000
