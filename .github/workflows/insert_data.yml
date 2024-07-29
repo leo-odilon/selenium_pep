@@ -5,7 +5,8 @@ on: workflow_call
 jobs:
   insert_pep:
     runs-on: ubuntu-latest
-    environment: master
+    # environment: master
+    environment: ${{ github.head_ref || github.ref_name }}
 
     steps:
     - name: Checkout repository
