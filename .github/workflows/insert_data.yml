@@ -49,7 +49,7 @@ jobs:
 
   insert_csnu:
     runs-on: ubuntu-latest
-    environment: master
+    environment: ${{ github.head_ref || github.ref_name }}
 
     steps:
     - name: Checkout repository
