@@ -6,8 +6,8 @@ on:
     # branches:
     #   - master
     #   - dev
-  schedule:
-    - cron: '*/30 * * * *'  # Executa todos os dias à meia-noite
+    schedule:
+      - cron: '*/30 * * * *'  # Executa todos os dias à meia-noite
 
 jobs:
   download:
