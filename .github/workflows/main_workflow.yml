@@ -2,18 +2,14 @@ name: Main Workflow
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-      - dev
+  # push:
+  #   branches:
+  #     - master
+  #     - dev
   # schedule:
   #   - cron: '*/10 * * * *'
 
 jobs:
-  change-branch:
-    uses: actions/checkout@v4
-    ref: 'dev'
-
   download:
     uses: ./.github/workflows/download.yml
 
