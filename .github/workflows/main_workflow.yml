@@ -2,10 +2,10 @@ name: Main Workflow
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-      - dev
+  # push:
+  #   branches:
+  #     - master
+  #     - dev
   # schedule:
   #   - cron: '*/10 * * * *'
 
